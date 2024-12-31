@@ -1,0 +1,186 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Online Library API",
+      "description": "API for managing books, loans, and reservations in an online library.",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api/books": {
+        "get": {
+          "summary": "Get all books",
+          "responses": {
+            "200": {
+              "description": "List of books"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new book",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book created successfully"
+            }
+          }
+        }
+      },
+      "/api/loans": {
+        "post": {
+          "summary": "Create a new loan",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Loan"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Loan created successfully"
+            }
+          }
+        }
+      },
+      "/api/reservations": {
+        "post": {
+          "summary": "Create a new reservation",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reservation"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Reservation created successfully"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Book": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "a4f5b9d6-0d74-4a2d-9c51-1a2d2aebfbd9"
+            },
+            "title": {
+              "type": "string",
+              "example": "The Great Gatsby"
+            },
+            "author": {
+              "type": "string",
+              "example": "F. Scott Fitzgerald"
+            },
+            "isbn": {
+              "type": "string",
+              "example": "9780743273565"
+            },
+            "quantity": {
+              "type": "integer",
+              "example": 10
+            },
+            "availableQuantity": {
+              "type": "integer",
+              "example": 8
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-12-31T12:00:00Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-12-31T12:00:00Z"
+            }
+          }
+        },
+        "Loan": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "abf9d8ad-9f1e-457d-8d73-f7b3edcbb40e"
+            },
+            "userId": {
+              "type": "string",
+              "example": "a4f5b9d6-0d74-4a2d-9c51-1a2d2aebfbd9"
+            },
+            "bookId": {
+              "type": "string",
+              "example": "f582d44b-b8f5-4269-9b1d-8c4a53e5e858"
+            },
+            "borrowedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-12-31T14:00:00Z"
+            },
+            "dueDate": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-01-14T14:00:00Z"
+            },
+            "returnedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-01-10T14:00:00Z"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["ACTIVE", "RETURNED", "OVERDUE"],
+              "example": "ACTIVE"
+            }
+          }
+        },
+        "Reservation": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "d4bf0d7a-1d15-47b1-8bda-e0b5e27691e2"
+            },
+            "userId": {
+              "type": "string",
+              "example": "a4f5b9d6-0d74-4a2d-9c51-1a2d2aebfbd9"
+            },
+            "bookId": {
+              "type": "string",
+              "example": "f582d44b-b8f5-4269-9b1d-8c4a53e5e858"
+            },
+            "reservedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-12-31T15:00:00Z"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["PENDING", "FULFILLED", "CANCELLED"],
+              "example": "PENDING"
+            }
+          }
+        }
+      }
+    }
+  }
+  
